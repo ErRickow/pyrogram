@@ -49,6 +49,7 @@ class SendVideo:
         disable_notification: bool = None,
         message_thread_id: int = None,
         effect_id: int = None,
+        show_caption_above_media: bool = None,
         reply_to_message_id: int = None,
         reply_to_chat_id: Union[int, str] = None,
         reply_to_story_id: int = None,
@@ -143,6 +144,9 @@ class SendVideo:
             effect_id (``int``, *optional*):
                 Unique identifier of the message effect.
                 For private chats only.
+
+            show_caption_above_media (``bool``, *optional*):
+                Pass True, if the caption must be shown above the message media.
 
             reply_to_message_id (``int``, *optional*):
                 If the message is a reply, ID of the original message.
@@ -292,6 +296,7 @@ class SendVideo:
                             peer=peer,
                             media=media,
                             silent=disable_notification or None,
+                            invert_media=show_caption_above_media,
                             reply_to=utils.get_reply_to(
                                 reply_to_message_id=reply_to_message_id,
                                 message_thread_id=message_thread_id,

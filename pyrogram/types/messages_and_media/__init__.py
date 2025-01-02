@@ -55,6 +55,7 @@ from .poll_option import PollOption
 from .reaction import Reaction
 from .refunded_payment import RefundedPayment
 from .screenshot_taken import ScreenshotTaken
+from .star_gift_attribute import StarGiftAttribute
 from .star_gift import StarGift
 from .sticker import Sticker
 from .story import Story
@@ -109,6 +110,7 @@ __all__ = [
     "Reaction",
     "RefundedPayment",
     "ScreenshotTaken",
+    "StarGiftAttribute",
     "StarGift",
     "Sticker",
     "Story",

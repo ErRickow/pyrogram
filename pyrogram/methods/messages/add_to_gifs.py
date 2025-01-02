@@ -18,35 +18,43 @@
 
 import pyrogram
 from pyrogram import raw
+from pyrogram.file_id import FileId
 
-
-class HideStarGift:
-    async def hide_star_gift(
+class AddToGifs():
+    async def add_to_gifs(
         self: "pyrogram.Client",
-        message_id: int
+        file_id: str,
+        unsave: bool = False
     ) -> bool:
-        """Hide the star gift from your profile.
+        """Add a GIF to the list of saved GIFs.
 
         .. include:: /_includes/usable-by/users.rst
 
         Parameters:
-            message_id (``int``):
-                Unique message identifier of star gift.
+            file_id (``str``):
+                Unique identifier for the GIF.
+
+            unsave (``bool``, optional):
+                Whether to remove the GIF from the list of saved GIFs. Defaults to ``False``.
 
         Returns:
-            ``bool``: On success, True is returned.
+            ``bool``: True on success.
 
         Example:
             .. code-block:: python
 
-                # Hide gift
-                app.hide_star_gift(message_id=123)
+                await app.add_to_gifs(message.animation.file_id)
+
         """
-        r = await self.invoke(
-            raw.functions.payments.SaveStarGift(
-                msg_id=message_id,
-                unsave=True
+        decoded_file_id = FileId.decode(file_id)
+
+        return await self.invoke(
+            raw.functions.messages.SaveGif(
+                id=raw.types.InputDocument(
+                    id=decoded_file_id.media_id,
+                    file_reference=decoded_file_id.file_reference,
+                    access_hash=decoded_file_id.access_hash,
+                ),
+                unsave=unsave
             )
         )
-
-        return r

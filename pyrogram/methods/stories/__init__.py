@@ -22,6 +22,7 @@ from .delete_stories import DeleteStories
 from .edit_story_caption import EditStoryCaption
 from .edit_story_media import EditStoryMedia
 from .edit_story_privacy import EditStoryPrivacy
+from .enable_stealth_mode import EnableStealthMode
 from .forward_story import ForwardStory
 from .get_all_stories import GetAllStories
 from .get_archived_stories import GetArchivedStories
@@ -43,6 +44,7 @@ class Stories(
     EditStoryCaption,
     EditStoryMedia,
     EditStoryPrivacy,
+    EnableStealthMode,
     ForwardStory,
     GetAllStories,
     GetArchivedStories,

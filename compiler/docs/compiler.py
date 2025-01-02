@@ -208,6 +208,7 @@ def pyrogram_api():
             delete_chat_history
             send_paid_media
             send_paid_reaction
+            add_to_gifs
         """,
         chats="""
         Chats
@@ -334,6 +335,8 @@ def pyrogram_api():
             send_payment_form
             send_star_gift
             show_star_gift
+            transfer_star_gift
+            upgrade_star_gift
         """,
         phone="""
         Phone
@@ -428,6 +431,7 @@ def pyrogram_api():
             unpin_chat_stories
             read_chat_stories
             send_story
+            enable_stealth_mode
         """,
         premium="""
         Premium
@@ -511,6 +515,7 @@ def pyrogram_api():
             ChatColor
             FoundContacts
             PrivacyRule
+            StoriesStealthMode
         """,
         messages_media="""
         Messages & Media
@@ -570,6 +575,7 @@ def pyrogram_api():
             ContactRegistered
             ScreenshotTaken
             WriteAccessAllowed
+            StarGiftAttribute
         """,
         bot_keyboards="""
         Bot keyboards
@@ -843,6 +849,10 @@ def pyrogram_api():
         StarGift
             StarGift.show
             StarGift.hide
+        """,
+        animation="""
+        Animation
+            Animation.add_to_gifs
         """
     )
 
@@ -904,6 +914,7 @@ def pyrogram_api():
             SentCodeType
             StoriesPrivacyRules
             UserStatus
+            StarGiftAttributeType
         """,
     )
 

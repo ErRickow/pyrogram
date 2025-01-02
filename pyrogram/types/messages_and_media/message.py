@@ -906,7 +906,7 @@ class Message(Object, Update):
             elif isinstance(action, raw.types.MessageActionBoostApply):
                 boosts_applied = action.boosts
                 service_type = enums.MessageServiceType.BOOST_APPLY
-            elif isinstance(action, raw.types.MessageActionStarGift):
+            elif isinstance(action, (raw.types.MessageActionStarGift, raw.types.MessageActionStarGiftUnique)):
                 star_gift = await types.StarGift._parse_action(client, message, users)
                 service_type = enums.MessageServiceType.STAR_GIFT
             elif isinstance(action, raw.types.MessageActionBotAllowed):
@@ -1586,6 +1586,7 @@ class Message(Object, Update):
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: List["types.MessageEntity"] = None,
         has_spoiler: bool = None,
+        show_caption_above_media: bool = None,
         duration: int = 0,
         width: int = 0,
         height: int = 0,
@@ -1647,6 +1648,9 @@ class Message(Object, Update):
 
             has_spoiler (``bool``, *optional*):
                 Pass True if the animation needs to be covered with a spoiler animation.
+
+            show_caption_above_media (``bool``, *optional*):
+                Pass True, if the caption must be shown above the message media.
 
             duration (``int``, *optional*):
                 Duration of sent animation in seconds.
@@ -1746,6 +1750,7 @@ class Message(Object, Update):
             parse_mode=parse_mode,
             caption_entities=caption_entities,
             has_spoiler=has_spoiler,
+            show_caption_above_media=show_caption_above_media,
             duration=duration,
             width=width,
             height=height,
@@ -2849,6 +2854,7 @@ class Message(Object, Update):
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: List["types.MessageEntity"] = None,
         has_spoiler: bool = None,
+        show_caption_above_media: bool = None,
         ttl_seconds: int = None,
         disable_notification: bool = None,
         message_thread_id: int = None,
@@ -2908,6 +2914,9 @@ class Message(Object, Update):
 
             has_spoiler (``bool``, *optional*):
                 Pass True if the photo needs to be covered with a spoiler animation.
+
+            show_caption_above_media (``bool``, *optional*):
+                Pass True, if the caption must be shown above the message media.
 
             ttl_seconds (``int``, *optional*):
                 Self-Destruct Timer.
@@ -3001,6 +3010,7 @@ class Message(Object, Update):
             parse_mode=parse_mode,
             caption_entities=caption_entities,
             has_spoiler=has_spoiler,
+            show_caption_above_media=show_caption_above_media,
             ttl_seconds=ttl_seconds,
             disable_notification=disable_notification,
             message_thread_id=message_thread_id,
@@ -3546,6 +3556,7 @@ class Message(Object, Update):
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: List["types.MessageEntity"] = None,
         has_spoiler: bool = None,
+        show_caption_above_media: bool = None,
         ttl_seconds: int = None,
         duration: int = 0,
         width: int = 0,
@@ -3610,6 +3621,9 @@ class Message(Object, Update):
 
             has_spoiler (``bool``, *optional*):
                 Pass True if the video needs to be covered with a spoiler animation.
+
+            show_caption_above_media (``bool``, *optional*):
+                Pass True to show the video caption above the video.
 
             ttl_seconds (``int``, *optional*):
                 Self-Destruct Timer.
@@ -3721,6 +3735,7 @@ class Message(Object, Update):
             parse_mode=parse_mode,
             caption_entities=caption_entities,
             has_spoiler=has_spoiler,
+            show_caption_above_media=show_caption_above_media,
             ttl_seconds=ttl_seconds,
             duration=duration,
             width=width,
@@ -4532,6 +4547,7 @@ class Message(Object, Update):
         schedule_date: datetime = None,
         protect_content: bool = None,
         has_spoiler: bool = None,
+        show_caption_above_media: bool = None,
         business_connection_id: str = None,
         allow_paid_broadcast: bool = None,
         reply_markup: Union[
@@ -4602,6 +4618,9 @@ class Message(Object, Update):
             protect_content (``bool``, *optional*):
                 Protects the contents of the sent message from forwarding and saving.
 
+            show_caption_above_media (``bool``, *optional*):
+                Pass True, if the caption must be shown above the message media.
+
             business_connection_id (``str``, *optional*):
                 Unique identifier of the business connection on behalf of which the message will be sent.
 
@@ -4663,6 +4682,7 @@ class Message(Object, Update):
                 schedule_date=schedule_date,
                 protect_content=protect_content,
                 has_spoiler=self.has_media_spoiler if has_spoiler is None else has_spoiler,
+                show_caption_above_media=self.show_caption_above_media if show_caption_above_media is None else show_caption_above_media,
                 business_connection_id=business_connection_id,
                 allow_paid_broadcast=allow_paid_broadcast,
                 reply_markup=self.reply_markup if reply_markup is object else reply_markup

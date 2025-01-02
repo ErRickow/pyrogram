@@ -47,6 +47,7 @@ from .phone_call_ended import PhoneCallEnded
 from .phone_call_started import PhoneCallStarted
 from .privacy_rule import PrivacyRule
 from .restriction import Restriction
+from .stories_stealth_mode import StoriesStealthMode
 from .user import User
 from .username import Username
 from .video_chat_ended import VideoChatEnded
@@ -70,6 +71,7 @@ __all__ = [
     "User",
     "Username",
     "Restriction",
+    "StoriesStealthMode",
     "ChatEvent",
     "ChatEventFilter",
     "ChatInviteLink",

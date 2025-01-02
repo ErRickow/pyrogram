@@ -42,6 +42,7 @@ class CopyMessage:
         schedule_date: datetime = None,
         protect_content: bool = None,
         has_spoiler: bool = None,
+        show_caption_above_media: bool = None,
         business_connection_id: str = None,
         allow_paid_broadcast: bool = None,
         reply_markup: Union[
@@ -107,6 +108,9 @@ class CopyMessage:
             has_spoiler (``bool``, *optional*):
                 True, if the message media is covered by a spoiler animation.
 
+            show_caption_above_media (``bool``, *optional*):
+                If True, caption must be shown above the message media.
+            
             business_connection_id (``str``, *optional*):
                 Unique identifier of the business connection on behalf of which the message will be sent.
 
@@ -138,6 +142,7 @@ class CopyMessage:
             schedule_date=schedule_date,
             protect_content=protect_content,
             has_spoiler=has_spoiler,
+            show_caption_above_media=show_caption_above_media,
             allow_paid_broadcast=allow_paid_broadcast,
             reply_markup=reply_markup,
             business_connection_id=business_connection_id

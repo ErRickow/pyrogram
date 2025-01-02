@@ -178,3 +178,16 @@ StarGift
     :hidden:
 
     {star_gift_toctree}
+
+Animation
+---------
+
+.. hlist::
+    :columns: 2
+
+    {animation_hlist}
+
+.. toctree::
+    :hidden:
+
+    {animation_toctree}

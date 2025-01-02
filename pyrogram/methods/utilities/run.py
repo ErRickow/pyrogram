@@ -16,6 +16,8 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import List
+
 import asyncio
 import inspect
 
@@ -26,7 +28,9 @@ from pyrogram.methods.utilities.idle import idle
 class Run:
     def run(
         self: "pyrogram.Client",
-        coroutine=None
+        coroutine=None,
+        use_qr: bool = False,
+        except_ids: List[int] = [],
     ):
         """Start the client, idle the main script and finally stop the client.
 
@@ -43,6 +47,14 @@ class Run:
         Parameters:
             coroutine (``Coroutine``, *optional*):
                 Pass a coroutine to run it until it completes.
+
+            use_qr (``bool``, *optional*):
+                Use QR code authorization instead of the interactive prompt.
+                For new authorizations only.
+                Defaults to False.
+
+            except_ids (List of ``int``, *optional*):
+                List of already logged-in user IDs, to prevent logging in twice with the same user.
 
         Raises:
             ConnectionError: In case you try to run an already started client.
@@ -77,10 +89,10 @@ class Run:
             run(coroutine)
         else:
             if inspect.iscoroutinefunction(self.start):
-                run(self.start())
+                run(self.start(use_qr=use_qr, except_ids=except_ids))
                 run(idle())
                 run(self.stop())
             else:
-                self.start()
+                self.start(use_qr=use_qr, except_ids=except_ids)
                 run(idle())
                 self.stop()
