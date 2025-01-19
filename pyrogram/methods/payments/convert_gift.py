@@ -16,27 +16,37 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-__version__ = "2.1.36"
-__license__ = "GNU Lesser General Public License v3.0 (LGPL-3.0)"
-__copyright__ = "Copyright (C) 2017-present Dan <https://github.com/delivrance>"
 
-from concurrent.futures.thread import ThreadPoolExecutor
+import pyrogram
+from pyrogram import raw
 
 
-class StopTransmission(Exception):
-    pass
+class ConvertGift:
+    async def convert_gift(
+        self: "pyrogram.Client",
+        message_id: int
+    ) -> bool:
+        """Convert star gift to stars.
 
+        .. include:: /_includes/usable-by/users.rst
 
-class StopPropagation(StopAsyncIteration):
-    pass
+        Parameters:
+            message_id (``int``):
+                Unique message identifier of star gift.
 
+        Returns:
+            ``bool``: On success, True is returned.
 
-class ContinuePropagation(StopAsyncIteration):
-    pass
+        Example:
+            .. code-block:: python
 
+                # Convert gift
+                app.convert_gift(message_id=123)
+        """
+        r = await self.invoke(
+            raw.functions.payments.ConvertStarGift(
+                msg_id=message_id
+            )
+        )
 
-from . import raw, types, filters, handlers, emoji, enums
-from .client import Client
-from .sync import idle, compose
-
-crypto_executor = ThreadPoolExecutor(1, thread_name_prefix="CryptoWorker")
+        return r

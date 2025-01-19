@@ -77,7 +77,7 @@ setup(
         "Tracker": "https://github.com/KurimuzonAkuma/pyrogram/issues",
         "Community": "https://t.me/kurigram_chat",
         "Source": "https://github.com/KurimuzonAkuma/pyrogram",
-        "Documentation": "https://docs.kurigram.xyz",
+        "Documentation": "https://docs.kurigram.live",
     },
     python_requires="~=3.8",
     package_data={

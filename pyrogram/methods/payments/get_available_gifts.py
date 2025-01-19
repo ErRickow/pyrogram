@@ -15,38 +15,30 @@
 #
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
+from typing import List
 
 import pyrogram
-from pyrogram import raw
+from pyrogram import raw, types
 
 
-class ShowStarGift:
-    async def show_star_gift(
+class GetAvailableGifts:
+    async def get_available_gifts(
         self: "pyrogram.Client",
-        message_id: int
-    ) -> bool:
-        """Display the star gift in your profile.
+    ) -> List["types.Gift"]:
+        """Get all available star gifts that can be sent to other users.
 
-        .. include:: /_includes/usable-by/users.rst
-
-        Parameters:
-            message_id (``int``):
-                Unique message identifier of star gift.
+        .. include:: /_includes/usable-by/users-bots.rst
 
         Returns:
-            ``bool``: On success, True is returned.
+            List of :obj:`~pyrogram.types.Gift`: On success, a list of star gifts is returned.
 
         Example:
             .. code-block:: python
 
-                # Show gift
-                app.show_star_gift(message_id=123)
+                app.get_available_gifts()
         """
         r = await self.invoke(
-            raw.functions.payments.SaveStarGift(
-                msg_id=message_id,
-                unsave=False
-            )
+            raw.functions.payments.GetStarGifts(hash=0)
         )
 
-        return r
+        return types.List([await types.Gift._parse(self, gift) for gift in r.gifts])

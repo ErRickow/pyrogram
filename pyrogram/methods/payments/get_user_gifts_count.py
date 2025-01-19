@@ -16,50 +16,49 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
 from typing import Union
 
 import pyrogram
 from pyrogram import raw
 
+log = logging.getLogger(__name__)
 
-class TransferStarGift:
-    async def transfer_star_gift(
+
+class GetUserGiftsCount:
+    async def get_user_gifts_count(
         self: "pyrogram.Client",
-        chat_id: Union[int, str],
-        message_id: int,
-    ) -> bool:
-        """Transfer star gift to another user.
+        chat_id: Union[int, str]
+    ) -> int:
+        """Get the total count of star gifts of specified user.
 
         .. include:: /_includes/usable-by/users.rst
 
         Parameters:
             chat_id (``int`` | ``str``):
-                Unique identifier (int) or username (str) of the target chat you want to transfer the star gift to.
+                Unique identifier (int) or username (str) of the target chat.
                 For your personal cloud (Saved Messages) you can simply use "me" or "self".
                 For a contact that exists in your Telegram address book you can use his phone number (str).
 
-            message_id (``int``):
-                Unique message identifier of star gift.
-
         Returns:
-            ``bool``: On success, True is returned.
+            ``int``: On success, the star gifts count is returned.
 
         Example:
             .. code-block:: python
 
-                # Show gift
-                app.transfer_star_gift(chat_id=123, message_id=123)
+                await app.get_user_gifts_count(chat_id)
         """
         peer = await self.resolve_peer(chat_id)
 
         if not isinstance(peer, (raw.types.InputPeerUser, raw.types.InputPeerSelf)):
             raise ValueError("chat_id must belong to a user.")
 
-        await self.invoke(
-            raw.functions.payments.TransferStarGift(
-                msg_id=message_id,
-                keep_original_details=keep_details
+        r = await self.invoke(
+            raw.functions.payments.GetUserStarGifts(
+                user_id=peer,
+                offset="",
+                limit=1
             )
         )
 
-        return True # TODO:
+        return r.count

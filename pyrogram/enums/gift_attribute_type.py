@@ -16,39 +16,21 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-
-from typing import Union
-
-import pyrogram
 from pyrogram import raw
+from .auto_name import AutoName
 
 
-class ConvertStarGift:
-    async def convert_star_gift(
-        self: "pyrogram.Client",
-        message_id: int
-    ) -> bool:
-        """Convert star gift to stars.
+class GiftAttributeType(AutoName):
+    """Star gift attribute type enumeration used in :obj:`~pyrogram.types.GiftAttribute`."""
 
-        .. include:: /_includes/usable-by/users.rst
+    MODEL = raw.types.StarGiftAttributeModel
+    "Model attribute"
 
-        Parameters:
-            message_id (``int``):
-                Unique message identifier of star gift.
+    SYMBOL = raw.types.StarGiftAttributePattern
+    "Symbol attribute"
 
-        Returns:
-            ``bool``: On success, True is returned.
+    BACKDROP = raw.types.StarGiftAttributeBackdrop
+    "Backdrop attribute"
 
-        Example:
-            .. code-block:: python
-
-                # Convert gift
-                app.convert_star_gift(message_id=123)
-        """
-        r = await self.invoke(
-            raw.functions.payments.ConvertStarGift(
-                msg_id=message_id
-            )
-        )
-
-        return r
+    ORIGINAL_DETAILS = raw.types.StarGiftAttributeOriginalDetails
+    "Original details attribute"

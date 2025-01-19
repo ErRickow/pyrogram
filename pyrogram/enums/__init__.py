@@ -37,7 +37,7 @@ from .privacy_key import PrivacyKey
 from .profile_color import ProfileColor
 from .reply_color import ReplyColor
 from .sent_code_type import SentCodeType
-from .star_gift_attribute_type import StarGiftAttributeType
+from .gift_attribute_type import GiftAttributeType
 from .stories_privacy_rules import StoriesPrivacyRules
 from .user_status import UserStatus
 
@@ -63,7 +63,7 @@ __all__ = [
     'ProfileColor',
     'ReplyColor',
     'SentCodeType',
-    'StarGiftAttributeType',
+    'GiftAttributeType',
     'StoriesPrivacyRules',
     'UserStatus'
 ]

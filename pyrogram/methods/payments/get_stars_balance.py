@@ -16,37 +16,47 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Optional, Union
+
 import pyrogram
 from pyrogram import raw
 
 
-class HideStarGift:
-    async def hide_star_gift(
+class GetStarsBalance:
+    async def get_stars_balance(
         self: "pyrogram.Client",
-        message_id: int
-    ) -> bool:
-        """Hide the star gift from your profile.
+        chat_id: Optional[Union[int, str]] = None,
+    ) -> int:
+        """Get the current Telegram Stars balance of the current account.
 
         .. include:: /_includes/usable-by/users.rst
 
         Parameters:
-            message_id (``int``):
-                Unique message identifier of star gift.
+            chat_id (``int`` | ``str``, *optional*):
+                Unique identifier (int) or username (str) of the target chat.
+                For your personal cloud (Saved Messages) you can simply use "me" or "self".
 
         Returns:
-            ``bool``: On success, True is returned.
+            ``int``: On success, the current stars balance is returned.
 
         Example:
             .. code-block:: python
 
-                # Hide gift
-                app.hide_star_gift(message_id=123)
+                # Get stars balance
+                app.get_stars_balance()
+
+                # Get stars balance of a bot
+                app.get_stars_balance(chat_id="pyrogrambot")
         """
+        if chat_id is None:
+            peer = raw.types.InputPeerSelf()
+        else:
+            peer = await self.resolve_peer(chat_id)
+
         r = await self.invoke(
-            raw.functions.payments.SaveStarGift(
-                msg_id=message_id,
-                unsave=True
+            raw.functions.payments.GetStarsStatus(
+                peer=peer
             )
         )
 
-        return r
+        return r.balance.amount
